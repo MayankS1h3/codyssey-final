@@ -72,7 +72,7 @@ function updateUserStats(data) {
 }
 
 function createSolvedChart(data) {
-    if (solvedChart) solvedChart.destroy(); // Destroy existing chart
+    if (solvedChart) solvedChart.destroy();
 
     const options = {
         series: [data.easySolved, data.mediumSolved, data.hardSolved],
@@ -103,20 +103,25 @@ function createSolvedChart(data) {
             }
         },
         legend: {
-            position: 'bottom',
+            position : 'bottom',
+            
             labels: {
                 colors: '#fff'
             }
         }
     };
+    if(window.innerWidth <= 400) {
+        options.legend.position = 'top'
+    }
 
     solvedChart = new ApexCharts(document.querySelector("#solvedChart"), options);
     solvedChart.render();
 }
 
 function createTotalChart(data) {
-    if (totalChart) totalChart.destroy(); // Destroy existing chart
+    if (totalChart) totalChart.destroy();
 
+    
     const options = {
         series: [data.totalEasy, data.totalMedium, data.totalHard],
         chart: {
@@ -138,13 +143,18 @@ function createTotalChart(data) {
             }
         }
     };
+    if(window.innerWidth <= 400) {
+        options.legend.position = 'top'
+    }
+
+
 
     totalChart = new ApexCharts(document.querySelector("#totalChart"), options);
     totalChart.render();
 }
 
 function createProgressChart(data) {
-    if (progressChart) progressChart.destroy(); // Destroy existing chart
+    if (progressChart) progressChart.destroy();
 
     const options = {
         series: [{
@@ -200,7 +210,7 @@ function createProgressChart(data) {
 }
 
 function createComparisonChart(data) {
-    if (comparisonChart) comparisonChart.destroy(); // Destroy existing chart
+    if (comparisonChart) comparisonChart.destroy(); 
 
     const options = {
         series: [{
@@ -272,25 +282,4 @@ function createComparisonChart(data) {
 
     comparisonChart = new ApexCharts(document.querySelector("#comparisonChart"), options);
     comparisonChart.render();
-    const responsive = () => {
-        let foreignObject = document.querySelectorAll('foreignObject');
-        foreignObject[0].innerHTML = '';
-        console.log(foreignObject[0]);
-        foreignObject[1].innerHTML = '';
-        console.log(foreignObject[1]);
-    }
-    
-    function myFunction(width) {
-        if (width.matches) { 
-          responsive();
-        } else {
-            return;
-        }
-    }
-    let width = window.matchMedia("(max-width: 400px)");
-    myFunction(width);
-
-    width.addEventListener("change", function() {
-    myFunction(width);
-    });
 }
