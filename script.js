@@ -21,6 +21,12 @@ async function fetchStats() {
         const URL = `https://leetcode-api-faisalshohag.vercel.app/${username.trim()}`;
         const data = await fetch(URL);
         const response = await data.json();
+        console.log(response);
+        const { ranking } = response;
+        if(ranking == undefined) {
+            alert("This user doesn't exist");
+            return;
+        }
 
         updateUI(response);
         usernameInput.value = ''; // Clear the input field after fetching stats
