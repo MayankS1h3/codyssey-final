@@ -103,16 +103,13 @@ function createSolvedChart(data) {
             }
         },
         legend: {
-            position : 'bottom',
+            position : 'top',
             
             labels: {
                 colors: '#fff'
             }
         }
     };
-    if(window.innerWidth <= 400) {
-        options.legend.position = 'top'
-    }
 
     solvedChart = new ApexCharts(document.querySelector("#solvedChart"), options);
     solvedChart.render();
@@ -137,22 +134,18 @@ function createTotalChart(data) {
             }
         },
         legend: {
-            position: 'bottom',
+            position: 'top',
             labels: {
                 colors: '#fff'
             }
         }
     };
-    if(window.innerWidth <= 400) {
-        options.legend.position = 'top'
-    }
 
 
 
     totalChart = new ApexCharts(document.querySelector("#totalChart"), options);
     totalChart.render();
 }
-
 function createProgressChart(data) {
     if (progressChart) progressChart.destroy();
 
@@ -173,7 +166,7 @@ function createProgressChart(data) {
             categories: ['Easy', 'Medium', 'Hard'],
             labels: {
                 style: {
-                    colors: '#fff'
+                    colors: ['#ffffff', '#ffffff', '#ffffff']  // Set the x-axis labels to white
                 }
             }
         },
@@ -183,13 +176,14 @@ function createProgressChart(data) {
                     return val.toFixed(0) + '%';
                 },
                 style: {
-                    colors: '#fff'
+                    colors: ['#ffffff']  // Set the y-axis labels to white
                 }
             }
         },
         fill: {
             opacity: 0.5,
             colors: ['#8b5cf6']
+            
         },
         stroke: {
             show: true,
@@ -208,6 +202,7 @@ function createProgressChart(data) {
     progressChart = new ApexCharts(document.querySelector("#progressChart"), options);
     progressChart.render();
 }
+
 
 function createComparisonChart(data) {
     if (comparisonChart) comparisonChart.destroy(); 
