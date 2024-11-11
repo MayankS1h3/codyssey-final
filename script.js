@@ -1,3 +1,5 @@
+let solvedChart, totalChart, progressChart, comparisonChart;
+
 const fetchStatsButton = document.getElementById('fetchStats');
 const usernameInput = document.getElementById('username');
 const statsContainer = document.getElementById('statsContainer');
@@ -8,9 +10,9 @@ fetchStatsButton.addEventListener('click', fetchStats);
 async function fetchStats() {
     let username = usernameInput.value;
     if (!username) {
-        alert('Enter an username to proceed');
+        alert('Enter a username to proceed');
         return;
-    };
+    }
 
     loadingIndicator.classList.remove('hidden');
     statsContainer.classList.add('hidden');
@@ -21,7 +23,7 @@ async function fetchStats() {
         const response = await data.json();
 
         updateUI(response);
-        usernameInput.value = '';
+        usernameInput.value = ''; // Clear the input field after fetching stats
     } catch (error) {
         console.error('Error fetching stats:', error);
     } finally {
@@ -44,7 +46,7 @@ function updateUI(data) {
 
 function updateUserStats(data) {
     const userStatsContainer = document.getElementById('userStats');
-    userStatsContainer.innerHTML = '';
+    userStatsContainer.innerHTML = ''; // Clear the previous stats
     const stats = [
         { label: 'Ranking', value: data.ranking },
         { label: 'Reputation', value: data.reputation },
@@ -63,6 +65,8 @@ function updateUserStats(data) {
 }
 
 function createSolvedChart(data) {
+    if (solvedChart) solvedChart.destroy(); // Destroy existing chart
+
     const options = {
         series: [data.easySolved, data.mediumSolved, data.hardSolved],
         chart: {
@@ -99,11 +103,13 @@ function createSolvedChart(data) {
         }
     };
 
-    const chart = new ApexCharts(document.querySelector("#solvedChart"), options);
-    chart.render();
+    solvedChart = new ApexCharts(document.querySelector("#solvedChart"), options);
+    solvedChart.render();
 }
 
 function createTotalChart(data) {
+    if (totalChart) totalChart.destroy(); // Destroy existing chart
+
     const options = {
         series: [data.totalEasy, data.totalMedium, data.totalHard],
         chart: {
@@ -126,11 +132,13 @@ function createTotalChart(data) {
         }
     };
 
-    const chart = new ApexCharts(document.querySelector("#totalChart"), options);
-    chart.render();
+    totalChart = new ApexCharts(document.querySelector("#totalChart"), options);
+    totalChart.render();
 }
 
 function createProgressChart(data) {
+    if (progressChart) progressChart.destroy(); // Destroy existing chart
+
     const options = {
         series: [{
             name: 'Progress',
@@ -180,11 +188,13 @@ function createProgressChart(data) {
         }
     };
 
-    const chart = new ApexCharts(document.querySelector("#progressChart"), options);
-    chart.render();
+    progressChart = new ApexCharts(document.querySelector("#progressChart"), options);
+    progressChart.render();
 }
 
 function createComparisonChart(data) {
+    if (comparisonChart) comparisonChart.destroy(); // Destroy existing chart
+
     const options = {
         series: [{
             name: 'Solved',
@@ -253,6 +263,6 @@ function createComparisonChart(data) {
         colors: ['#60a5fa', '#f472b6']
     };
 
-    const chart = new ApexCharts(document.querySelector("#comparisonChart"), options);
-    chart.render();
+    comparisonChart = new ApexCharts(document.querySelector("#comparisonChart"), options);
+    comparisonChart.render();
 }
