@@ -272,5 +272,25 @@ function createComparisonChart(data) {
 
     comparisonChart = new ApexCharts(document.querySelector("#comparisonChart"), options);
     comparisonChart.render();
+    const responsive = () => {
+        let foreignObject = document.querySelectorAll('foreignObject');
+        foreignObject[0].innerHTML = '';
+        console.log(foreignObject[0]);
+        foreignObject[1].innerHTML = '';
+        console.log(foreignObject[1]);
+    }
+    
+    function myFunction(width) {
+        if (width.matches) { 
+          responsive();
+        } else {
+            return;
+        }
+    }
+    let width = window.matchMedia("(max-width: 400px)");
+    myFunction(width);
 
+    width.addEventListener("change", function() {
+    myFunction(width);
+    });
 }
