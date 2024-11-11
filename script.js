@@ -29,6 +29,7 @@ async function fetchStats() {
         }
 
         updateUI(response);
+        
         usernameInput.value = ''; // Clear the input field after fetching stats
     } catch (error) {
         console.error('Error fetching stats:', error);
@@ -271,4 +272,5 @@ function createComparisonChart(data) {
 
     comparisonChart = new ApexCharts(document.querySelector("#comparisonChart"), options);
     comparisonChart.render();
+
 }

@@ -18,6 +18,11 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.125);
         }
+        @media screen and (max-width : 400px) {
+            foreignObject > div {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-4 md:p-8">
@@ -38,9 +43,9 @@
                     <h2 class="text-2xl font-semibold mb-4 text-white">User Statistics</h2>
                     <div class="flex flex-wrap justify-around items-center" id="userStats"></div>
                 </div>
-                <div class="glassmorphism rounded-xl shadow-lg p-6 transform hover:scale-102 transition duration-300">
+                <div class="glassmorphism rounded-xl shadow-lg p-6 transform hover:scale-102 transition duration-300 relative z-10">
                     <h2 class="text-2xl font-semibold mb-4 text-white">Solved Questions</h2>
-                    <div id="solvedChart"></div>
+                    <div id="solvedChart" class="relative z-50"></div>
                 </div>
                 <div class="glassmorphism rounded-xl shadow-lg p-6 transform hover:scale-102 transition duration-300">
                     <h2 class="text-2xl font-semibold mb-4 text-white">Total Questions</h2>
