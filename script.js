@@ -176,7 +176,7 @@ function createProgressChart(data) {
                     return val.toFixed(0) + '%';
                 },
                 style: {
-                    colors: ['#ffffff']  // Set the y-axis labels to white
+                    colors: ['#fff']  // Set the y-axis labels to white
                 }
             }
         },
