@@ -18,7 +18,7 @@ async function fetchStats() {
     statsContainer.classList.add('hidden');
 
     try {
-        const URL = `https://leetcode-api-faisalshohag.vercel.app/${username.trim()}`;
+        const URL = `https://leetcode-stats-api.herokuapp.com/${username.trim()}`;
         const data = await fetch(URL);
         const response = await data.json();
         console.log(response);
