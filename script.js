@@ -57,7 +57,7 @@ function updateUserStats(data) {
     const stats = [
         { label: 'Ranking', value: data.ranking },
         { label: 'Reputation', value: data.reputation },
-        { label: 'Contribution Points', value: data.contributionPoint }
+        { label: 'Contribution Points', value: data.contributionPoints }
     ];
 
     stats.forEach(stat => {
