@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding Stats Dashboard - LeetCode & Codeforces</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+      /* ... your existing styles ... */
+      .auth-form {
+        display: none;
+        margin-bottom: 20px;
+        padding: 20px;
+        background-color: #2d3748;
+        border-radius: 8px;
+      }
+      .auth-form input {
+        margin-bottom: 10px;
+      }
+      #userProfileSection {
+        display: none; /* Initially hidden */
+      }
+      #dashboardContent {
+        display: none; /* Initially hide dashboard content until logged in */
+      }
+      #authButtonsContainer {
+        margin-bottom: 20px;
+      } /* Container for Login/Signup buttons */
+    </style>
+  </head>
+  <body>
+    <div class="container mx-auto p-6 bg-gray-800 rounded-lg shadow-xl">
+      <h1 class="text-3xl font-bold text-center text-white mb-4">
+        Coding Stats Dashboard
+      </h1>
+
+      <!-- Auth Buttons Container -->
+      <div id="authButtonsContainer" class="text-center">
+        <button
+          id="showLoginBtn"
+          class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg mr-2"
+        >
+          Login
+        </button>
+        <button
+          id="showSignupBtn"
+          class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg"
+        >
+          Sign Up
+        </button>
+      </div>
+
+      <!-- Login Form -->
+      <div id="loginForm" class="auth-form">
+        <h2 class="text-xl text-white mb-3 text-center">Login</h2>
+        <input
+          type="email"
+          id="loginEmail"
+          placeholder="Email"
+          class="w-full p-2 rounded bg-gray-700 text-white border border-gray-600"
+        />
+        <input
+          type="password"
+          id="loginPassword"
+          placeholder="Password"
+          class="w-full p-2 rounded bg-gray-700 text-white border border-gray-600 mt-2"
+        />
+        <button
+          id="loginBtn"
+          class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold p-2 rounded-lg w-full mt-3"
+        >
+          Login
+        </button>
+        <p id="loginMessage" class="text-sm text-red-400 mt-2 text-center"></p>
+      </div>
+
+      <!-- Signup Form -->
+      <div id="signupForm" class="auth-form">
+        <h2 class="text-xl text-white mb-3 text-center">Sign Up</h2>
+        <input
+          type="email"
+          id="signupEmail"
+          placeholder="Email"
+          class="w-full p-2 rounded bg-gray-700 text-white border border-gray-600"
+        />
+        <input
+          type="password"
+          id="signupPassword"
+          placeholder="Password"
+          class="w-full p-2 rounded bg-gray-700 text-white border border-gray-600 mt-2"
+        />
+        <input
+          type="text"
+          id="signupLeetcodeUsername"
+          placeholder="LeetCode Username (Optional)"
+          class="w-full p-2 rounded bg-gray-700 text-white border border-gray-600 mt-2"
+        />
+        <input
+          type="text"
+          id="signupCodeforcesHandle"
+          placeholder="Codeforces Handle (Optional)"
+          class="w-full p-2 rounded bg-gray-700 text-white border border-gray-600 mt-2"
+        />
+        <button
+          id="signupBtn"
+          class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold p-2 rounded-lg w-full mt-3"
+        >
+          Sign Up
+        </button>
+        <p id="signupMessage" class="text-sm text-red-400 mt-2 text-center"></p>
+      </div>
+
+      <!-- User Profile & Handle Management (Shown after login) -->
+      <div id="userProfileSection">
+        <p class="text-white text-center text-lg">
+          Welcome, <span id="userEmailDisplay" class="font-semibold"></span>!
+        </p>
+        <div
+          class="flex flex-col md:flex-row justify-center items-center md:items-end gap-4 my-4"
+        >
+          <div class="input-group w-full md:w-auto">
+            <label for="leetcodeUsernameProfile" class="text-gray-300 text-sm"
+              >Your LeetCode Username</label
+            >
+            <input
+              type="text"
+              id="leetcodeUsernameProfile"
+              placeholder="Not Set"
+              class="p-3 border border-gray-600 rounded-lg bg-gray-700 text-white w-full"
+            />
+          </div>
+          <div class="input-group w-full md:w-auto">
+            <label for="codeforcesHandleProfile" class="text-gray-300 text-sm"
+              >Your Codeforces Handle</label
+            >
+            <input
+              type="text"
+              id="codeforcesHandleProfile"
+              placeholder="Not Set"
+              class="p-3 border border-gray-600 rounded-lg bg-gray-700 text-white w-full"
+            />
+          </div>
+          <button
+            id="saveHandlesBtn"
+            class="bg-purple-600 hover:bg-purple-700 text-white font-semibold p-3 rounded-lg h-[46px] mt-4 md:mt-0 self-end"
+          >
+            Save Handles
+          </button>
+        </div>
+        <button
+          id="logoutBtn"
+          class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg block mx-auto mt-2 mb-4"
+        >
+          Logout
+        </button>
+      </div>
+
+      <!-- Dashboard Content (Original content goes here, now controlled by auth state) -->
+      <div id="dashboardContent">
+        <div class="flex justify-center mb-6">
+          <button
+            id="fetchStats"
+            class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            Fetch My Stats
+          </button>
+        </div>
+        <div id="messageArea" class="text-center text-yellow-400 mb-4"></div>
+        <div id="loadingIndicator" class="hidden text-center text-white py-4">
+          Loading...
+        </div>
+        <div
+          id="statsContainer"
+          class="hidden opacity-0 transition-opacity duration-500 ease-in-out"
+        >
+          <div
+            id="userStats"
+            class="flex flex-wrap justify-center gap-4 mb-6"
+          ></div>
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- Chart divs remain the same -->
+            <div class="chart-container bg-gray-700 p-4 rounded-lg shadow">
+              <h2 class="text-xl font-semibold text-white text-center mb-2">
+                Problems Solved
+              </h2>
+              <div id="solvedChart"></div>
+            </div>
+            <div class="chart-container bg-gray-700 p-4 rounded-lg shadow">
+              <h2 class="text-xl font-semibold text-white text-center mb-2">
+                Total Problems (LeetCode)
+              </h2>
+              <div id="totalChart"></div>
+            </div>
+            <div class="chart-container bg-gray-700 p-4 rounded-lg shadow">
+              <h2 class="text-xl font-semibold text-white text-center mb-2">
+                Progress Radar (LeetCode)
+              </h2>
+              <div id="progressChart"></div>
+            </div>
+            <div class="chart-container bg-gray-700 p-4 rounded-lg shadow">
+              <h2 class="text-xl font-semibold text-white text-center mb-2">
+                Comparison: Solved
+              </h2>
+              <div id="comparisonChart"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

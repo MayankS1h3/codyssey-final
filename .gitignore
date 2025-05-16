@@ -1,1 +1,16 @@
-node_modules
+# Backend specific
+backend/node_modules/
+backend/.env
+backend/npm-debug.log*
+backend/yarn-debug.log*
+backend/yarn-error.log*
+
+# General OS files
+.DS_Store
+Thumbs.db
+
+# IDE / Editor specific (optional, but good practice)
+.vscode/
+.idea/
+*.swp
+*~
