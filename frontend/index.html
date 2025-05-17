@@ -6,6 +6,11 @@
     <title>Coding Stats Dashboard - LeetCode & Codeforces</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <!-- Add Cal-Heatmap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/cal-heatmap@3.6.2/cal-heatmap.css"
+    />
     <style>
       /* ... your existing styles ... */
       .auth-form {
@@ -27,9 +32,23 @@
       #authButtonsContainer {
         margin-bottom: 20px;
       } /* Container for Login/Signup buttons */
+
+      /* Styles for heatmap container if needed */
+      #cal-heatmap-section {
+        margin-top: 2rem; /* 32px */
+        padding: 1rem; /* 16px */
+        background-color: #374151; /* gray-700 */
+        border-radius: 0.5rem; /* 8px */
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+      #cal-heatmap-section h2 {
+        margin-bottom: 0.5rem; /* 8px */
+      }
     </style>
   </head>
-  <body>
+  <body class="bg-gray-900 text-gray-100">
+    <!-- Added base body styles for better contrast -->
     <div class="container mx-auto p-6 bg-gray-800 rounded-lg shadow-xl">
       <h1 class="text-3xl font-bold text-center text-white mb-4">
         Coding Stats Dashboard
@@ -205,9 +224,29 @@
               <div id="comparisonChart"></div>
             </div>
           </div>
+
+          <!-- NEW: Combined Activity Heatmap Section -->
+          <div
+            id="cal-heatmap-section"
+            class="mt-8 p-4 bg-gray-700 rounded-lg shadow"
+          >
+            <h2 class="text-xl font-semibold text-white text-center mb-2">
+              Combined Activity Heatmap (Last 3 Months)
+            </h2>
+            <div
+              id="cal-heatmap"
+              style="width: 100%; overflow-x: auto; margin-top: 20px"
+            >
+              <!-- Heatmap will be rendered here by script.js -->
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- Add D3.js and Cal-Heatmap JS -->
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cal-heatmap@3.6.2/cal-heatmap.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
